@@ -14,7 +14,6 @@ const App = () => {
   const [headerColor, setHeaderColor] = useState("success.light");
 
   const [stations, setStations] = useState({});
-  const [locationName, setLocationName] = useState("");
 
   const [coordinates, setCoordinates] = useState({});
 
@@ -56,7 +55,6 @@ const App = () => {
         headerColor={headerColor}
         setMapState={setMapState}
         setGridState={setGridState}
-        setLocationName={setLocationName}
       />
       {console.log(coordinates)}
       <Grid container style={{ width: "100%" }}>
@@ -73,10 +71,7 @@ const App = () => {
           />
         </Grid>
         <Grid item xs={12} md={mapState}>
-          <LeafletMap
-            stations={stations}
-            coordinates={coordinates}
-          />
+          <LeafletMap stations={stations} coordinates={coordinates} />
         </Grid>
       </Grid>
     </>

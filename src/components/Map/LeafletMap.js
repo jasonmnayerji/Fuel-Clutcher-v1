@@ -7,7 +7,6 @@ import Media from "./Media";
 import { Card, CardContent, Typography } from "@mui/material";
 import { useMapEvents } from "react-leaflet";
 import * as L from "leaflet";
-import { useEffect } from "react";
 
 const LeafletMap = (stations, coordinates) => {
   const Map = () => {
