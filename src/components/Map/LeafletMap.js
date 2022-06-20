@@ -1,8 +1,7 @@
 import "./styles.css";
 import { MapContainer } from "react-leaflet";
 import { Marker } from "react-leaflet";
-import { useState, useEffect } from "react";
-import logo from "../../assets/unnamed.png";
+// import logo from "../../assets/unnamed.png";
 import { Popup } from "react-leaflet";
 import Media from "./Media";
 import { Card, CardContent, Typography } from "@mui/material";
@@ -10,7 +9,6 @@ import { useMapEvents } from "react-leaflet";
 import * as L from "leaflet";
 
 const LeafletMap = (stations) => {
-  const [position, setPosition] = useState(null);
   const Map = () => {
     const map = useMapEvents("map", {
       zoomControl: false,
