@@ -14,12 +14,10 @@ const LeafletMap = (stations, coordinates) => {
     const map = useMapEvents("map", {
       zoomControl: false,
     });
-    useEffect(() => {
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 20,
-      }).addTo(map);
-    }, []);
-
+    
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 20,
+    }).addTo(map);
 
     map.locate({ setView: true, watch: true, maxZoom: 10 });
     let locationFoundIcon = L.icon({
