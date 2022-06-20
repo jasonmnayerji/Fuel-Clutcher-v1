@@ -13,8 +13,8 @@ export default function Header({
   headerColor,
   setCoordinates,
 }) {
-
   const [toggleState, setToggleState] = useState(true);
+  const [autocomplete, setAutocomplete] = useState(null);
   const handleMenuClick = () => {
     if (toggleState === true) {
       setGridState("");
@@ -25,7 +25,6 @@ export default function Header({
     }
     setToggleState(!toggleState);
   };
-
 
   return (
     <div>
@@ -71,7 +70,16 @@ export default function Header({
             >
               Locate Fuel Stations
             </Typography>
-            <Autocomplete>
+            <Autocomplete
+              onLoad={(autoC) => {
+                setAutocomplete(autoC);
+              }}
+              onPlaceChanged={() => {
+                const lat = autocomplete.getPlace().geometry.location.lat();
+                const lng = autocomplete.getPlace().geometry.location.lng();
+                setCoordinates({ lng: lat, lat: lng });
+              }}
+            >
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon />

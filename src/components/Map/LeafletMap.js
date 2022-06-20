@@ -7,16 +7,19 @@ import Media from "./Media";
 import { Card, CardContent, Typography } from "@mui/material";
 import { useMapEvents } from "react-leaflet";
 import * as L from "leaflet";
+import { useEffect } from "react";
 
-const LeafletMap = (stations) => {
+const LeafletMap = (stations, coordinates) => {
   const Map = () => {
     const map = useMapEvents("map", {
       zoomControl: false,
     });
+    useEffect(() => {
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 20,
+      }).addTo(map);
+    }, []);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 20,
-    }).addTo(map);
 
     map.locate({ setView: true, watch: true, maxZoom: 10 });
     let locationFoundIcon = L.icon({

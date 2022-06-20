@@ -14,6 +14,7 @@ const App = () => {
   const [headerColor, setHeaderColor] = useState("success.light");
 
   const [stations, setStations] = useState({});
+  const [locationName, setLocationName] = useState("");
 
   const [coordinates, setCoordinates] = useState({});
 
@@ -29,6 +30,7 @@ const App = () => {
       }
     );
   }, []);
+  console.log(coordinates.lat);
 
   console.log(coordinates);
   useEffect(() => {
@@ -54,7 +56,9 @@ const App = () => {
         headerColor={headerColor}
         setMapState={setMapState}
         setGridState={setGridState}
+        setLocationName={setLocationName}
       />
+      {console.log(coordinates)}
       <Grid container style={{ width: "100%" }}>
         <Grid Style={`display: ${gridState}`} item xs={12} md={4}>
           <List
@@ -68,11 +72,9 @@ const App = () => {
             setEvConnectorType={setEvConnectorType}
           />
         </Grid>
-        <Grid item xs={12} md={mapState} height="100%">
+        <Grid item xs={12} md={mapState}>
           <LeafletMap
             stations={stations}
-            // stationCoordinates={stationCoordinates}
-            // setCoordinates={setCoordinates}
             coordinates={coordinates}
           />
         </Grid>
