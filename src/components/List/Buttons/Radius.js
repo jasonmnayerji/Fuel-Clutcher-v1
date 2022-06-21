@@ -5,10 +5,10 @@ const Radius = ({radius, setRadius}) => {
       <InputLabel>Radius</InputLabel>
       <Select value={radius} onChange={(e) => setRadius(e.target.value)}>
         <MenuItem value="1.0">1 mi</MenuItem>
+        <MenuItem value="2.0">2 mi</MenuItem>
+        <MenuItem value="3.0">3 mi</MenuItem>
+        <MenuItem value="4.0">4 mi</MenuItem>
         <MenuItem value="5.0">5 mi</MenuItem>
-        <MenuItem value="10.0">10 mi</MenuItem>
-        <MenuItem value="25.0">25 mi</MenuItem>
-        <MenuItem value="50.0">50 mi</MenuItem>
       </Select>
     </FormControl>
   );

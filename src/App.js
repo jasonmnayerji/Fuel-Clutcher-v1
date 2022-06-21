@@ -15,7 +15,7 @@ const App = () => {
 
   const [stations, setStations] = useState({});
 
-  const [coordinates, setCoordinates] = useState({});
+  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
 
   const [radius, setRadius] = useState("5.0");
   const [fuelType, setFuelType] = useState("");
@@ -29,22 +29,16 @@ const App = () => {
       }
     );
   }, []);
-  console.log(coordinates.lat);
 
-  console.log(coordinates);
   useEffect(() => {
-    fuelType === "Electric" ? (
-      getStationData(
-        radius,
-        evConnectorType,
-        coordinates.lng,
-        coordinates.lat
-      ).then(({ data }) => {
-        setStations(data);
-      })
-    ) : (
-      <></>
-    );
+    getStationData(
+      radius,
+      evConnectorType,
+      coordinates.lng,
+      coordinates.lat
+    ).then(({ data }) => {
+      setStations(data);
+    });
   }, [fuelType, radius, coordinates, evConnectorType]);
 
   return (
@@ -56,7 +50,6 @@ const App = () => {
         setMapState={setMapState}
         setGridState={setGridState}
       />
-      {console.log(coordinates)}
       <Grid container style={{ width: "100%" }}>
         <Grid Style={`display: ${gridState}`} item xs={12} md={4}>
           <List

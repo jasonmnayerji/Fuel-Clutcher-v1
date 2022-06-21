@@ -1,7 +1,7 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import EVC from "./Buttons/EVC";
 import Radius from "./Buttons/Radius";
-import FuelType from "./Buttons/FuelType";
+// import FuelType from "./Buttons/FuelType";
 import StationDetails from "../StationDetails/StationDetails";
 
 const List = ({
@@ -10,7 +10,7 @@ const List = ({
   setRadius,
   stations,
   fuelType,
-  setFuelType,
+  // setFuelType,
   evConnectorType,
   setEvConnectorType,
 }) => {
@@ -25,21 +25,25 @@ const List = ({
         Fuel Stations Near You
       </Typography>
       <Divider sx={{ pt: 1, display: { xs: "none", sm: "block" } }} />
-      <FuelType
+      {/* <FuelType
         setHeaderColor={setHeaderColor}
         fuelType={fuelType}
         setFuelType={setFuelType}
-      />
+      /> */}
       <Radius radius={radius} setRadius={setRadius} />
-      {fuelType === "Electric" && (
+      {/* {fuelType === "Electric" && (
         <EVC
           evConnectorType={evConnectorType}
           setEvConnectorType={setEvConnectorType}
         />
-      )}
+      )} */}
+      <EVC
+        evConnectorType={evConnectorType}
+        setEvConnectorType={setEvConnectorType}
+      />
       <Grid container style={{ height: "75vh", overflow: "auto " }}>
-        {features?.map((feature) => (
-          <Grid item xs={12}>
+        {features?.map((feature, i) => (
+          <Grid item key={i} xs={12}>
             <StationDetails feature={feature} />
           </Grid>
         ))}
