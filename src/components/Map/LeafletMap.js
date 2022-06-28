@@ -18,8 +18,7 @@ const LeafletMap = ({ stations, coordinates }) => {
     const map = useMapEvents("map");
     map.setView(location, 12);
   };
-  console.log(stations);
-
+  
   return (
     <MapContainer scrollWheelZoom={true}>
       <Map />
