@@ -2,7 +2,6 @@ import "./styles.css";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useMapEvents } from "react-leaflet";
 import * as L from "leaflet";
-import { useEffect } from "react";
 
 let evIcon = L.icon({
   iconUrl:
