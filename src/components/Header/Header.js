@@ -1,4 +1,3 @@
-// import { makeStyles } from "@mui/styles";
 import { Toolbar, IconButton, Typography, AppBar, Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -7,12 +6,7 @@ import logo from "../../assets/lo1.svg";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { Autocomplete } from "@react-google-maps/api";
 
-export default function Header({
-  setGridState,
-  setMapState,
-  headerColor,
-  setCoordinates,
-}) {
+export default function Header({ setGridState, setMapState, setCoordinates }) {
   const [toggleState, setToggleState] = useState(true);
   const [autocomplete, setAutocomplete] = useState(null);
   const handleMenuClick = () => {
@@ -29,7 +23,7 @@ export default function Header({
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar sx={{ bgcolor: headerColor }} position="static">
+        <AppBar sx={{ bgcolor: "success.light" }} position="static">
           <Toolbar>
             <IconButton
               size="large"
@@ -55,7 +49,6 @@ export default function Header({
                 }}
               />
             </Typography>
-
             <Typography
               variant="h6"
               noWrap
@@ -75,8 +68,8 @@ export default function Header({
                 setAutocomplete(autoC);
               }}
               onPlaceChanged={() => {
-                const lat = autocomplete.getPlace().geometry.location.lat();
-                const lng = autocomplete.getPlace().geometry.location.lng();
+                const lat = autocomplete.getPlace().geometry.location.lng();
+                const lng = autocomplete.getPlace().geometry.location.lat();
                 setCoordinates({ lng: lat, lat: lng });
               }}
             >

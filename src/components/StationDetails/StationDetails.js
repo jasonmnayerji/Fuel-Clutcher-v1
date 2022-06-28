@@ -10,7 +10,7 @@ import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import logo from "../../assets/unnamed.png";
 
-const StationDetails = ({ setStationCoordinates, feature }) => {
+const StationDetails = ({ feature }) => {
   const [bgColor, setBgColor] = useState("");
 
   const handleStationName = () => {
@@ -67,7 +67,7 @@ const StationDetails = ({ setStationCoordinates, feature }) => {
             />
           </Typography>
           <Typography gutterBottom color="text.secondary" variant="h9">
-            {feature.properties.station_phone}
+            {!feature.properties.station_phone ? "No Number Found" : feature.properties.station_phone}
           </Typography>
         </Box>{" "}
         <Box pt={0} display="flex" justifyContent="space-between">
@@ -78,10 +78,11 @@ const StationDetails = ({ setStationCoordinates, feature }) => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
         <Button
           onClick={() => {
-            window.open(feature.properties.ev_network_web);
+            feature.properties.ev_network_web === null
+              ? alert("Nothing to show!")
+              : window.open(feature.properties.ev_network_web);
           }}
           size="small"
         >
