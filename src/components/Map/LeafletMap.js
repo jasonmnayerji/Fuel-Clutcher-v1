@@ -12,16 +12,16 @@ let evIcon = L.icon({
   shadowSize: [41, 41],
 });
 
-const LeafletMap = ({ stations, coordinates }) => {
+const LeafletMap = ({ stations, coordinates, setHoverId }) => {
   const location = [coordinates.lat, coordinates.lng];
-  const Map = () => {
+  const MapView = () => {
     const map = useMapEvents("map");
-    map.setView(location, 12);
+    map.setView(location);
   };
 
   return (
-    <MapContainer scrollWheelZoom={true}>
-      <Map />
+    <MapContainer zoom={12} center={location} scrollWheelZoom={true}>
+      <MapView />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -29,25 +29,21 @@ const LeafletMap = ({ stations, coordinates }) => {
       <Marker position={location}>
         <Popup>You are here</Popup>
       </Marker>
-      {stations.features?.map((feature) => (
+      {stations.features?.map((feature, i) => (
         <Marker
           eventHandlers={{
-            click: () => {
-              window.open(
-                "https://maps.google.com?q=" +
-                  feature.geometry.coordinates[1] +
-                  "," +
-                  feature.geometry.coordinates[0]
-              );
+            mouseover: () => {
+              setHoverId(i);
             },
           }}
           icon={evIcon}
-          key={feature.properties.id}
           position={[
             feature.geometry.coordinates[1],
             feature.geometry.coordinates[0],
           ]}
-        ></Marker>
+        >
+          <Popup>{feature.properties.station_name}</Popup>
+        </Marker>
       ))}
     </MapContainer>
   );

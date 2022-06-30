@@ -13,7 +13,7 @@ const App = () => {
   const [coordinates, setCoordinates] = useState(null);
   const [radius, setRadius] = useState("");
   const [evConnectorType, setEvConnectorType] = useState("");
-
+  const [hoverId, setHoverId] = useState(null);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { longitude, latitude } }) => {
@@ -39,7 +39,6 @@ const App = () => {
         setMapState={setMapState}
         setGridState={setGridState}
       />
-
       {coordinates && stations ? (
         <Grid container style={{ width: "100%" }}>
           <Grid Style={`display: ${gridState}`} item xs={12} md={4}>
@@ -49,10 +48,15 @@ const App = () => {
               setRadius={setRadius}
               evConnectorType={evConnectorType}
               setEvConnectorType={setEvConnectorType}
+              hoverId={hoverId}
             />
           </Grid>
           <Grid item xs={12} md={mapState}>
-            <LeafletMap stations={stations} coordinates={coordinates} />
+            <LeafletMap
+              stations={stations}
+              coordinates={coordinates}
+              setHoverId={setHoverId}
+            />
           </Grid>
         </Grid>
       ) : null}

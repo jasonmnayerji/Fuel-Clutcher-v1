@@ -4,19 +4,14 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { auto } from "@popperjs/core";
-import { useState } from "react";
 import { Box } from "@mui/system";
-import { Divider } from "@mui/material";
+import { Divider, Link } from "@mui/material";
 import logo from "../../assets/unnamed.png";
 
-const StationDetails = ({ feature }) => {
-  const [bgColor, setBgColor] = useState("");
-
-  const handleStationName = () => {
-    return feature.properties.station_name;
-  };
-
+const StationDetails = ({ feature, selected, refProp }) => {
+  if (selected) {
+    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
   const constructAddress = () => {
     let [address, city, state] = [
       feature.properties.street_address,
@@ -28,9 +23,13 @@ const StationDetails = ({ feature }) => {
 
   return (
     <Card
-      onMouseOver={() => setBgColor("text.disabled")}
-      onMouseOut={() => setBgColor("")}
-      sx={{ maxWidth: auto, m: 2, backgroundColor: bgColor }}
+      variant="elevation"
+      sx={{
+        m: 2,
+        "&:hover": {
+          boxShadow: "3px 3px 5px 6px #ccc",
+        },
+      }}
     >
       <CardMedia
         component="img"
@@ -39,8 +38,8 @@ const StationDetails = ({ feature }) => {
         alt="random station"
       />
       <CardContent>
-        <Typography gutterbottom variant="h5" component="div">
-          {handleStationName()}
+        <Typography variant="h5" component="div">
+          {feature.properties.station_name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {feature.properties.access_days_time}
@@ -54,7 +53,7 @@ const StationDetails = ({ feature }) => {
               src="https://cdn-icons-png.flaticon.com/512/67/67347.png"
             />
           </Typography>
-          <Typography gutterBottom color="text.secondary" variant="h9">
+          <Typography color="text.secondary" variant="h9">
             {constructAddress()}
           </Typography>
         </Box>
@@ -66,13 +65,32 @@ const StationDetails = ({ feature }) => {
               src="https://www.freeiconspng.com/thumbs/phone-icon/phone-icon-png--clipart-best-17.png"
             />
           </Typography>
-          <Typography gutterBottom color="text.secondary" variant="h9">
-            {!feature.properties.station_phone ? "No Number Found" : feature.properties.station_phone}
-          </Typography>
-        </Box>{" "}
+          <Link
+            href="#"
+            onClick={() => {
+              console.log(
+                window.open(`tel:${feature.properties.station_phone}`)
+              );
+            }}
+          >
+            <Typography
+              sx={{
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+              color="text.secondary"
+              variant="h9"
+            >
+              {!feature.properties.station_phone
+                ? "No Number Found"
+                : feature.properties.station_phone}
+            </Typography>
+          </Link>
+        </Box>
         <Box pt={0} display="flex" justifyContent="space-between">
           <Typography variant="body2">Access Type</Typography>
-          <Typography gutterBott om color="text.secondary" variant="h9">
+          <Typography color="text.secondary" variant="h9">
             {feature.properties.access_code}
           </Typography>
         </Box>
@@ -87,6 +105,19 @@ const StationDetails = ({ feature }) => {
           size="small"
         >
           Learn More
+        </Button>
+        <Button
+          onClick={() => {
+            window.open(
+              "https://maps.google.com?q=" +
+                feature.geometry.coordinates[1] +
+                "," +
+                feature.geometry.coordinates[0]
+            );
+          }}
+          size="small"
+        >
+          Directions
         </Button>
       </CardActions>
     </Card>

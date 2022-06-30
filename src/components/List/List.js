@@ -2,6 +2,7 @@ import { Divider, Grid, Typography } from "@mui/material";
 import EVC from "./Buttons/EVC";
 import Radius from "./Buttons/Radius";
 import StationDetails from "../StationDetails/StationDetails";
+import { useEffect, createRef, useState } from "react";
 
 const List = ({
   radius,
@@ -9,8 +10,16 @@ const List = ({
   stations,
   evConnectorType,
   setEvConnectorType,
+  hoverId,
 }) => {
+  const [elRef, setElRef] = useState([]);
   const features = stations.features;
+  useEffect(() => {
+    const ref = Array(features.length)
+      .fill()
+      .map((_, i) => elRef[i] || createRef());
+    setElRef(ref);
+  }, [features]);
 
   return (
     <div style={{ padding: "25px" }}>
@@ -30,8 +39,12 @@ const List = ({
       />
       <Grid container style={{ height: "75vh", overflow: "auto " }}>
         {features?.map((feature, i) => (
-          <Grid item key={i} xs={12}>
-            <StationDetails feature={feature} />
+          <Grid ref={elRef[i]} item key={i} xs={12}>
+            <StationDetails
+              feature={feature}
+              selected={hoverId === i}
+              refProp={elRef[i]}
+            />
           </Grid>
         ))}
       </Grid>
