@@ -21,6 +21,43 @@ const StationDetails = ({ feature, selected, refProp }) => {
     return `${address} ${city} ${state}`;
   };
 
+  const HandleNumbers = () => {
+    if (!feature.properties.station_phone) {
+      return;
+    }
+    const number = feature.properties.station_phone;
+    const numbers = number.split(" ");
+    // const removeEmpty = numbers.filter((val) => val);
+    return (
+      <Box pt={0} display="flex" justifyContent="space-between">
+        <Typography variant="body2">
+          <img
+            width={20}
+            alt="phone"
+            src="https://www.freeiconspng.com/thumbs/phone-icon/phone-icon-png--clipart-best-17.png"
+          />
+        </Typography>
+        <Link
+          href="#"
+          onClick={() => {
+            window.open(`tel:${numbers[0]}`);
+          }}
+        >
+          <Typography
+            sx={{
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}
+            color="text.secondary"
+            variant="h7"
+          >
+            {numbers[0]}
+          </Typography>
+        </Link>
+      </Box>
+    );
+  };
   return (
     <Card
       variant="elevation"
@@ -41,56 +78,29 @@ const StationDetails = ({ feature, selected, refProp }) => {
         <Typography variant="h5" component="div">
           {feature.properties.station_name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {feature.properties.access_days_time}
-        </Typography>
+        <Box pt={2} display="flex" justifyContent="space-between">
+          <Typography variant="body2" color="text.secondary">
+            {feature.properties.access_days_time}
+          </Typography>
+        </Box>
         <Divider sx={{ pt: 1 }} />
         <Box pt={2} display="flex" justifyContent="space-between">
-          <Typography variant="h9">
+          <Typography variant="h7">
             <img
               width={20}
               alt="location pin"
               src="https://cdn-icons-png.flaticon.com/512/67/67347.png"
             />
+            {Math.round(feature.properties.distance * 100) / 100} mi
           </Typography>
-          <Typography color="text.secondary" variant="h9">
+          <Typography color="text.secondary" variant="h7">
             {constructAddress()}
           </Typography>
         </Box>
-        <Box pt={0} display="flex" justifyContent="space-between">
-          <Typography variant="body2">
-            <img
-              width={20}
-              alt="phone"
-              src="https://www.freeiconspng.com/thumbs/phone-icon/phone-icon-png--clipart-best-17.png"
-            />
-          </Typography>
-          <Link
-            href="#"
-            onClick={() => {
-              console.log(
-                window.open(`tel:${feature.properties.station_phone}`)
-              );
-            }}
-          >
-            <Typography
-              sx={{
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
-              color="text.secondary"
-              variant="h9"
-            >
-              {!feature.properties.station_phone
-                ? "No Number Found"
-                : feature.properties.station_phone}
-            </Typography>
-          </Link>
-        </Box>
+        <HandleNumbers />
         <Box pt={0} display="flex" justifyContent="space-between">
           <Typography variant="body2">Access Type</Typography>
-          <Typography color="text.secondary" variant="h9">
+          <Typography color="text.secondary" variant="h7">
             {feature.properties.access_code}
           </Typography>
         </Box>

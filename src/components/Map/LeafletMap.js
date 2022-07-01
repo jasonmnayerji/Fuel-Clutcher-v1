@@ -18,6 +18,7 @@ const LeafletMap = ({ stations, coordinates, setHoverId }) => {
     const map = useMapEvents("map");
     map.setView(location);
   };
+  console.log(stations);
 
   return (
     <MapContainer zoom={12} center={location} scrollWheelZoom={true}>
@@ -42,7 +43,14 @@ const LeafletMap = ({ stations, coordinates, setHoverId }) => {
             feature.geometry.coordinates[0],
           ]}
         >
-          <Popup>{feature.properties.station_name}</Popup>
+          <Popup>
+            <div Style="text-align: center">
+              <div>{feature.properties.station_name}</div>
+              <div>
+                {Math.round(feature.properties.distance * 100) / 100} mi
+              </div>
+            </div>
+          </Popup>
         </Marker>
       ))}
     </MapContainer>
