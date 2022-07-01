@@ -27,7 +27,6 @@ const StationDetails = ({ feature, selected, refProp }) => {
     }
     const number = feature.properties.station_phone;
     const numbers = number.split(" ");
-    // const removeEmpty = numbers.filter((val) => val);
     return (
       <Box pt={0} display="flex" justifyContent="space-between">
         <Typography variant="body2">
@@ -79,9 +78,11 @@ const StationDetails = ({ feature, selected, refProp }) => {
           {feature.properties.station_name}
         </Typography>
         <Box pt={2} display="flex" justifyContent="space-between">
-          <Typography variant="body2" color="text.secondary">
-            {feature.properties.access_days_time}
-          </Typography>
+          {!feature.properties.access_days_time ? null : (
+            <Typography variant="body2" color="text.secondary">
+              {feature.properties.access_days_time}
+            </Typography>
+          )}
         </Box>
         <Divider sx={{ pt: 1 }} />
         <Box pt={2} display="flex" justifyContent="space-between">
