@@ -1,6 +1,7 @@
 import "./styles.css";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useMapEvents } from "react-leaflet";
+
 import * as L from "leaflet";
 
 let evIcon = L.icon({
@@ -18,7 +19,7 @@ const LeafletMap = ({ stations, coordinates, setHoverId }) => {
     const map = useMapEvents("map");
     map.setView(location);
   };
-  
+  console.log(stations);
   return (
     <MapContainer zoom={12} center={location} scrollWheelZoom={true}>
       <MapView />
@@ -29,11 +30,12 @@ const LeafletMap = ({ stations, coordinates, setHoverId }) => {
       <Marker position={location}>
         <Popup>You are here</Popup>
       </Marker>
-      {stations.features?.map((feature, i) => (
+      {stations.features?.map((feature) => (
         <Marker
+          key={feature.properties.id}
           eventHandlers={{
             mouseover: () => {
-              setHoverId(i);
+              setHoverId(feature.properties.id);
             },
           }}
           icon={evIcon}

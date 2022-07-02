@@ -1,8 +1,8 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import EVC from "./Buttons/EVC";
 import Radius from "./Buttons/Radius";
-import StationDetails from "../StationDetails/StationDetails";
 import { useEffect, createRef, useState } from "react";
+import StationDetails from "../StationDetails/StationDetails";
 
 const List = ({
   radius,
@@ -39,10 +39,10 @@ const List = ({
       />
       <Grid container style={{ height: "75vh", overflow: "auto " }}>
         {features?.map((feature, i) => (
-          <Grid ref={elRef[i]} item key={i} xs={12}>
+          <Grid ref={elRef[i]} item key={feature.properties.id} xs={12}>
             <StationDetails
               feature={feature}
-              selected={hoverId === i}
+              selected={hoverId === feature.properties.id}
               refProp={elRef[i]}
             />
           </Grid>

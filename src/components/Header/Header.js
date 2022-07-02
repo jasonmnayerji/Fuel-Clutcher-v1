@@ -1,15 +1,16 @@
 import { Toolbar, IconButton, Typography, AppBar, Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
-import logo from "../../assets/lo1.svg";
+import { useCallback, useState } from "react";
+import logo from "../../assets/unnamed.png";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { Autocomplete } from "@react-google-maps/api";
 
 export default function Header({ setGridState, setMapState, setCoordinates }) {
   const [toggleState, setToggleState] = useState(true);
   const [autocomplete, setAutocomplete] = useState(null);
-  const handleMenuClick = () => {
+
+  const handleMenuClick = useCallback(() => {
     if (toggleState === true) {
       setGridState("");
       setMapState(8);
@@ -17,8 +18,8 @@ export default function Header({ setGridState, setMapState, setCoordinates }) {
       setGridState("none");
       setMapState(12);
     }
-    setToggleState(!toggleState);
-  };
+    setToggleState((state) => !state);
+  }, [toggleState]);
 
   return (
     <div>
@@ -52,7 +53,7 @@ export default function Header({ setGridState, setMapState, setCoordinates }) {
             <Typography
               variant="h6"
               noWrap
-              component="div"
+              component="h1"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
               Fuel Clutcher

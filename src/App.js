@@ -41,7 +41,7 @@ const App = () => {
       />
       {coordinates && stations ? (
         <Grid container style={{ width: "100%" }}>
-          <Grid Style={`display: ${gridState}`} item xs={12} md={4}>
+          <Grid sx={{ display: gridState }} item xs={12} md={4}>
             <List
               stations={stations}
               radius={radius}
